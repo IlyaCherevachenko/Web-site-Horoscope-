@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row g-3">
+            <div class="col name-horo rounded">
+                <h2 class="fs-2">Гороскоп для {{ name }}</h2>
+            </div>
+    </div>
+    <div class="container-sm pt-4 pb-4">
+        <div class="row g-3">
+            {% if len_texts == 1 %}
+                <div class="col">
+                    <p class="lh-base fs-5 zodiac-p">{{ texts[0] }}</p>
+                </div>
+            {% else %}
+                <div class="col">
+                {% for text_numb in range(len_texts) %}
+                        {% if text_numb == 0 %}
+                        <div class="container-sm text-center">
+                            <p class="lh-base fs-5 zodiac-p">{{ texts[text_numb] }}</p>
+                        </div>
+                        {% endif %}
+                        {% if text_numb == 1 %}
+                        <div class="container-sm text-center">
+                            <img src="{{ file }}" class="zodiac-img">
+                            <p class="lh-base fs-5 zodiac-p">{{ texts[text_numb] }}</p>
+                        </div>
+                        {% endif %}
+                        {% if text_numb == 2 %}
+                        <div class="container-sm text-center">
+                            <img src="{{ file }}" class="zodiac-img">
+                            <p class="lh-base fs-5 zodiac-p">{{ texts[text_numb] }}</p>
+                        </div>
+                        {% endif %}
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row g-3 pb-3">
+            <div class="col text-center ms-3">
+                <a href="/zodiac_sign/{{ sign }}/today">
+                    <button type="button" class="btn btn-info">Сегодня</button>
+                </a>
+            </div>
+            <div class="col text-center ms-3">
+                <a href="/zodiac_sign/{{ sign }}/tomorrow">
+                    <button type="button" class="btn btn-info">Завтра</button>
+                </a>
+            </div>
+            <div class="col text-center ms-3">
+                <a href="/zodiac_sign/{{ sign }}/week">
+                    <button type="button" class="btn btn-info">Неделя</button>
+                </a>
+            </div>
+            <div class="col text-center ms-3">
+                <a href="/zodiac_sign/{{ sign }}/month">
+                    <button type="button" class="btn btn-info">Месяц</button>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
