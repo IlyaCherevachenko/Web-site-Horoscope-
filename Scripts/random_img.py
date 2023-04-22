@@ -2,18 +2,27 @@ from random import randint
 from flask import url_for
 
 
-def random_image(number, sign):
+def random_image_horoscope_base(sign):
+    number_imgs = 10
+    number = randint(1, number_imgs)
+    image = url_for('static', filename=f'img/image_zodiacs/{sign}/{number}.jpg')
+
+    return image
+
+
+def random_image_horoscope_personal(sign):
     images = []
+    number_imgs = 10
+    number = 2
 
     for i in range(1, number + 1):
-        number = randint(1, 10)
-        image = url_for('static', filename=f'img/image_zodiacs/{sign}/{number}.jpg')
-        while image in images:
-            number = randint(1, 10)
-            image = url_for('static', filename=f'img/image_zodiacs/{sign}/{number}.jpg')
-        images.append(image)
+        count_sign = randint(1, number_imgs)
+        image = url_for('static', filename=f'img/image_zodiacs/{sign}/{count_sign}.jpg')
 
-    if len(images) == 1:
-        return image
+        while image in images:
+            count_sign = randint(1, number_imgs)
+            image = url_for('static', filename=f'img/image_zodiacs/{sign}/{count_sign}.jpg')
+
+        images.append(image)
 
     return images

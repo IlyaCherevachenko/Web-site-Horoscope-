@@ -1,9 +1,11 @@
 def get_name_zodiac(sign):
-    ZODIAC_SIGNS = {
-        "gemini": 'близнецов', "leo": 'львов', "virgo": 'дев',
-        "libra": 'весов,', "scorpio": 'скорпионов', "sagittarius": 'стрельцов',
-        "capricorn": 'козерогов', "aquarius": 'водолеев', "pisces": 'рыб',
-        "aries": 'овнов', "taurus": 'тельцов', "cancer": 'раков'
+    zodiac_signs = {
+        "gemini": 'Близнецов', "leo": 'Львов', "virgo": 'Дев',
+        "libra": 'Весов,', "scorpio": 'Скорпионов', "sagittarius": 'Стрельцов',
+        "capricorn": 'Козерогов', "aquarius": 'Водолеев', "pisces": 'Рыб',
+        "aries": 'Овнов', "taurus": 'Тельцов', "cancer": 'Раков'
     }
 
-    return ZODIAC_SIGNS[sign]
+    result = zodiac_signs[sign]
+
+    return result

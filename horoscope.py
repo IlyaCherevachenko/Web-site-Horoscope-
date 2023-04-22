@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
-from Parcer import parcing
-from Scripts import random_img, zodiac_sign, name_zodiac, create_home
-from Scripts.birthday import write_and_read_birthday
-from Scripts.constructor import constructor_horoscope
+from parcer import parcing_base_horoscope, parcing_personal_horoscope
+from scripts import random_img, zodiac_sign, name_zodiac, create_home
+from scripts.birthday import write_and_read_birthday
+from scripts.constructor import constructor_horoscope
+from scripts.db_for_news import create_db
 
 app = Flask(__name__)
 
@@ -18,21 +19,21 @@ def home():
 @app.route('/zodiac_sign/<sign>/<date>')
 def gemini_data(sign, date):
     zodiac_name = name_zodiac.get_name_zodiac(sign)
-    image = random_img.random_image(1, sign)
+    image = random_img.random_image_horoscope_base(sign)
 
     if date == 'today' or date == 'tomorrow':
-        text = parcing.get_horoscope_by_day_and_tomorrow(sign, date)
+        text = parcing_base_horoscope.get_horoscope_by_day_and_tomorrow(sign, date)
 
         if text is None:
-            text = constructor_horoscope.create_horoscope()
+            text = constructor_horoscope.create_horoscope(date)
 
         return render_template('zodiacs.html', texts=text, len_texts=len(text), name=zodiac_name,
                                sign=sign)
     else:
-        texts = parcing.get_horoscope_by_week_and_month(sign, date)
+        texts = parcing_base_horoscope.get_horoscope_by_week_and_month(sign, date)
 
         if texts is None:
-            texts = constructor_horoscope.create_horoscope() # количество текстов (пока 1 - ошибка)
+            texts = constructor_horoscope.create_horoscope(date)  # количество текстов (нужно добавить ещё)
 
         return render_template('zodiacs.html', texts=texts, len_texts=len(texts), file=image,
                                name=zodiac_name, sign=sign)
@@ -45,34 +46,41 @@ def get_data_form(date):
         birthday = request.form.get('date')
 
         sign = zodiac_sign.get_sign_from_form(birthday)
-        image_1, image_2 = random_img.random_image(2, sign)
+        image_1, image_2 = random_img.random_image_horoscope_personal(sign)
 
         if date == 'today' or 'tomorrow':
-            texts = parcing.get_personal_horoscope_by_day_and_tomorrow(sign, date)
+            texts = parcing_personal_horoscope.get_personal_horoscope_by_day_and_tomorrow(sign, date)
+
         else:
-            texts = parcing.get_personal_horoscope_by_week_and_month(sign, date)
+            texts = parcing_personal_horoscope.get_personal_horoscope_by_week_and_month(sign, date)
 
         if texts is None:
-            texts = constructor_horoscope.create_horoscope()  # количество текстов (пока 1 - ошибка)
+            texts = constructor_horoscope.create_horoscope(date)
 
         write_and_read_birthday.write_birthday(name, birthday, sign)
 
         return render_template('personal_horoscope.html', name=name,  texts=texts, len_texts=len(texts),
                                file_1=image_1, file_2=image_2)
     else:
-        data_user = write_and_read_birthday.read_birthday()
-        image_1, image_2 = random_img.random_image(2, data_user[2])
+        name, birthday, sign = write_and_read_birthday.read_birthday()
+        image_1, image_2 = random_img.random_image_horoscope_personal(sign)
 
         if date == 'today' or date == 'tomorrow':
-            texts = parcing.get_personal_horoscope_by_day_and_tomorrow(data_user[2], date)
+            texts = parcing_personal_horoscope.get_personal_horoscope_by_day_and_tomorrow(sign, date)
         else:
-            texts = parcing.get_personal_horoscope_by_week_and_month(data_user[2], date)
+            texts = parcing_personal_horoscope.get_personal_horoscope_by_week_and_month(sign, date)
 
         if texts is None:
-            texts = constructor_horoscope.create_horoscope()
+            texts = constructor_horoscope.create_horoscope(date)
 
-    return render_template('personal_horoscope.html', name=data_user[0],  texts=texts, len_texts=len(texts),
+    return render_template('personal_horoscope.html', name=name,  texts=texts, len_texts=len(texts),
                            file_1=image_1, file_2=image_2)
+
+
+@app.route('/news')
+def news():
+    result = create_db.main_db()
+    return render_template('news.html', result=result)
 
 
 if __name__ == "__main__":

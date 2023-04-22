@@ -8,6 +8,7 @@
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
           crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <title>Гороскоп</title>
 </head>
 <body class="overflow-scroll">
@@ -25,16 +26,9 @@
                             <label>Твой Гороскоп</label>
                         </div>
                     </div>
-
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse top-menu" id="navbarNav">
-                            <ul>
-                                <li class="nav-item ms-1"><a class="nav-link" href="#">Новости</a></li>
-                                <li class="nav-item ms-1"><a class="nav-link" href="/home">Знаки</a></li>
-                                <li class="nav-item ms-1"><a class="nav-link" href="#">Прочее</a></li>
-                            </ul>
+                        <div class="top-menu">
+                            <button class="ms-1"><a class="nav-link" href="/news">Новости</a></button>
+                            <button class="ms-1"><a class="nav-link" href="/home">Знаки</a></button>
                         </div>
                     </div>
             </nav>
@@ -44,42 +38,7 @@
             <source src="{{ url_for('static', filename='video/vd.mp4') }}" type="video/mp4">
           </video>
         <div class="video-wrapper">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="offcanvas offcanvas-start left-settings rounded"
-                         tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
-                        <div class="offcanvas-header rounded-circle">
-                            <h5 class="offcanvas-title" id="offcanvasLabel">Определить знак зодиака</h5>
-                        </div>
-                        <form method="post" action="/home_filter/today">
-                        <div class="offcanvas-body">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <input name="text" type="text" class="form-control" placeholder="Ваше имя"
-                                           aria-label="First name" maxlength="16" onkeypress="noDigits(event)">
-                                </div>
-                                <div class="col-md-6">
-                                    <input name="date" type="date" class="form-control" required>
-                                </div>
-                                <div class="col-12">
-                                    <select name="gender" class="form-select" aria-label="Default select example">
-                                        <option selected>Выберите свой пол</option>
-                                        <option value="m">Мужской</option>
-                                        <option value="w">Женский</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-success">Определить</button>
-                                </div>
-                            </div>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-6 home-since rounded-top">
-                        {% block content %}{% endblock %}
-                </div>
-            </div>
+            {% block horoscope %}{% endblock %}
         </div>
     </main>
     <footer>

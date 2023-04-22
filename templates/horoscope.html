@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block horoscope %}
+ <div class="row">
+                <div class="col-md-3">
+                    <div class="offcanvas offcanvas-start left-settings rounded"
+                         tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+                        <div class="offcanvas-header rounded-circle">
+                            <h5 class="offcanvas-title text-center text-white" id="offcanvasLabel">Определить знак зодиака</h5>
+                        </div>
+                        <form method="post" action="/home_filter/today">
+                        <div class="offcanvas-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input name="text" type="text" class="form-control" placeholder="Ваше имя"
+                                           aria-label="First name" maxlength="16" onkeypress="noDigits(event)" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input name="date" type="date" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <select name="gender" class="form-select" aria-label="Default select example">
+                                        <option selected>Выберите свой пол</option>
+                                        <option value="m">Мужской</option>
+                                        <option value="w">Женский</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success">Определить</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6 home-since rounded-top">
+                        {% block content %}{% endblock %}
+                </div>
+            </div>
+{% endblock %}

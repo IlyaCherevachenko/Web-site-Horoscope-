@@ -1,7 +1,9 @@
-{% extends "base.html" %}
+{% extends "horoscope.html" %}
+
+
 {% block content %}
     <div class="container-sm pt-4 pb-4">
-        <h2>Гороскоп для:</h2>
+        <h2 class="text-zodiac">Гороскоп для:</h2>
         <div class="row g-3">
             {% for image, sign in data %}
             <div class="col-6 col-md-4 text-center">

@@ -4,8 +4,8 @@
 }
 
 img {
-    width: 95%;
-    height: auto;
+    width: auto;
+    height: 100%;
 }
 
 body {
@@ -46,6 +46,11 @@ footer {
     margin-top: 30px;
 }
 
+.text-zodiac {
+    text-indent: 8%;
+    padding-bottom: 20px;
+}
+
 .home-since {
     box-shadow: 5px 8px black;
     margin-top: 30px;
@@ -62,8 +67,8 @@ footer {
 }
 
 .logo {
-    width: 75px;
     height: 75px;
+    width: 75px;
 }
 
 .navbar{
@@ -78,22 +83,23 @@ footer {
     margin-left: 10%;
     margin-top: 40%;
     padding-left: 25px;
-    background: #ffe375;
+    background-color: -webkit-linear-gradient(90deg, #a338f1,#96009d,#7400b9);
+    background: linear-gradient(90deg, #a338f1,#96009d,#7400b9);
     width: 75%;
     padding-bottom: 15px;
     padding-right: 15px;
-    box-shadow: 0 0 0 3px #ffc014;
+    box-shadow: 5px 7px 0 1px #0e1824;
 }
 
 .title {
-    width: 30%;
+    width: 20%;
     height: 75px;
 }
 
 .title label {
     margin-left: 10%;
     font-family: 'Trebuchet MS', sans-serif;
-    font-size: 24px;
+    font-size: 20px;
     color: #04857e;
 }
 
@@ -101,24 +107,23 @@ footer {
     display: inline-block;
 }
 
-
 .top-menu {
-    margin-left: 10%;
+    float: left;
 }
 
-.top-menu ul li {
+.top-menu button {
     list-style: none;
     float: left;
-    text-align: center;
-
+    background-color: black;
+    border: none;
 }
 
-.top-menu ul li a {
+.top-menu button a {
     display: inline-block;
-    width: 150px;
+    width: 80px;
     text-decoration: none;
     font-family:  "Exo2-Medium", sans-serif;
-    font-size: 17px;
+    font-size: 16px;
     color: white;
     height: 75px;
     padding-top: 25px;
@@ -141,6 +146,7 @@ footer {
 
 img.zodiac-sign:hover {
     width: 55%;
+    height: auto;
     box-shadow: 0 0 0 3px #7dc4fa;
 }
 

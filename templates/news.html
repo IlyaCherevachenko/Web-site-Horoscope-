@@ -1,0 +1,36 @@
+{% extends "horoscope.html" %}
+
+
+{% block horoscope %}
+{% for name, first_p, link, texts in result %}
+ <div class="row">
+                <div class="col-md-3">
+                </div>
+                    <div class="col-md-6 home-since rounded-top">
+
+                        <div class="row g-3">
+                            <div class="col name-horo rounded">
+                                <h2 class="fs-2">{{ name }}</h2>
+                            </div>
+                        </div>
+                        <div class="container-sm pt-4 pb-4">
+                            <div class="row g-3">
+                                <div class="col">
+                                    <div class="container-sm text-center">
+                                        <p class="lh-base fs-5 zodiac-p">{{ first_p }}</p>
+                                    </div>
+                                    <div class="container-sm text-center">
+                                        <img src="{{ link }}" class="zodiac-img">
+                                    </div>
+                                    {% for text in texts %}
+                                        <div class="container-sm text-center">
+                                            <p class="lh-base fs-5 zodiac-p">{{ text }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ </div>
+{% endfor %}
+{% endblock %}
