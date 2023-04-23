@@ -4,6 +4,7 @@ from random import choice
 def create_horoscope(status):
     small = ['today', 'tomorrow', 'day']
     big = ['month', 'week']
+    first_occurrence = 0
 
     with open('scripts/constructor/constructor_data/part_1.txt', 'r', encoding='UTF-8') as f:
         text_1 = f.readlines()
@@ -14,9 +15,9 @@ def create_horoscope(status):
     with open('scripts/constructor/constructor_data/part_3.txt', 'r', encoding='UTF-8') as f:
         text_3 = f.readlines()
 
-    part_1 = text_1[0].split('/')
-    part_2 = text_2[0].split('/')
-    part_3 = text_3[0].split('/')
+    part_1 = text_1[first_occurrence].split('/')
+    part_2 = text_2[first_occurrence].split('/')
+    part_3 = text_3[first_occurrence].split('/')
 
     for word in small:
         if status == word:

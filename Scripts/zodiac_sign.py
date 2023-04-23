@@ -30,8 +30,14 @@ sign_names = {
 
 
 def get_sign_from_form(birthday):
-    data = birthday.split('-')
-    day, month = int(data[2]), int(data[1])
+    data = map(int, birthday.split('-'))
+    year, month, day = data
+
     for index, sign in enumerate(sign_dates):
-        if (month == sign[0][1] and day >= sign[0][0]) or (month == sign[1][1] and day <= sign[1][0]):
+        month_limit_first, day_limit_first = sign[0][1], sign[0][0]
+        month_limit_second, day_limit_second = sign[1][1], sign[1][0]
+
+        if (month == month_limit_first and day >= day_limit_first) \
+                or (month == month_limit_second and day <= day_limit_second):
+
             return sign_names[f'{index}']

@@ -33,7 +33,7 @@ def gemini_data(sign, date):
         texts = parcing_base_horoscope.get_horoscope_by_week_and_month(sign, date)
 
         if texts is None:
-            texts = constructor_horoscope.create_horoscope(date)  # количество текстов (нужно добавить ещё)
+            texts = constructor_horoscope.create_horoscope(date)
 
         return render_template('zodiacs.html', texts=texts, len_texts=len(texts), file=image,
                                name=zodiac_name, sign=sign)

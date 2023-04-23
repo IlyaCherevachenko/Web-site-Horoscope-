@@ -1,7 +1,6 @@
 import sqlite3 as sl
 from Goroskop.parcer.parcing_news_main import get_news_main
 from json import dumps, loads
-import schedule
 
 
 def create_db(con):
@@ -18,12 +17,14 @@ def create_db(con):
 
 
 def check_db(con):
+    nothing = 0
+
     with con:
         data = con.execute("select count(*) from sqlite_master where type='table' and name='news'")
 
         for row in data:
             for item in row:
-                if item == 0:
+                if item == nothing:
                     create_db(con)
                     return True
 
@@ -31,7 +32,7 @@ def check_db(con):
         cursor.execute("""SELECT * FROM news""")
         records = cursor.fetchall()
 
-        if len(records) == 0:
+        if len(records) == nothing:
             return True
 
         return False
@@ -39,6 +40,7 @@ def check_db(con):
 
 def delete_record(con):
     numbers_delete = 3
+    first_item = 0
 
     with con:
         cursor = con.cursor()
@@ -48,7 +50,7 @@ def delete_record(con):
         for k in range(1, numbers_delete + 1):
             for i in range(len(records)):
                 if i < numbers_delete:
-                    id_news = records[i][0]
+                    id_news = records[i][first_item]
 
                     delete_data = f"""DELETE FROM news WHERE id_news = {id_news}"""
                     cursor.execute(delete_data)
@@ -76,19 +78,20 @@ def filling_db(data, con):
 
 def print_db(con):
     result = []
+    limit = 3
 
     with con:
         cursor = con.cursor()
         cursor.execute("""SELECT * FROM news""")
         records = cursor.fetchall()
 
-        print("Всего строк:  ", len(records))
-        print("Вывод каждой строки")
-
-        for row in records:
-            id_news, name_news, first_text, link, text = row
-            text = loads(text)
-            result.append([name_news, first_text, link, text])
+        for i in range(len(records)):
+            if i < limit:
+                id_news, name_news, first_text, link, text = records[i]
+                text = loads(text)
+                result.append([name_news, first_text, link, text])
+            else:
+                break
 
     return result
 
@@ -105,8 +108,9 @@ def main_db():
     return result
 
 
-def done_script():
+def data_db():
     con = sl.connect('scripts/db_for_news/news.db')
     data = create_data_for_db()
-    schedule.every(20).seconds.do(delete_record, con)
-    schedule.every(10).seconds.do(filling_db, data, con)
+    result = [con, data]
+
+    return result
