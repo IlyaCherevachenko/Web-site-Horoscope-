@@ -1,6 +1,6 @@
 from scripts.db_for_news import create_db
 import schedule
-import time
+from time import sleep
 from pytz import timezone
 
 
@@ -13,10 +13,10 @@ schedule.every().day.at('00:00', tz).do(create_db.delete_record, con)
 
 while True:
     delay = 1
-    
+
     try:
         schedule.run_pending()
-        time.sleep(delay)
+        sleep(delay)
 
     except KeyboardInterrupt:
         break
