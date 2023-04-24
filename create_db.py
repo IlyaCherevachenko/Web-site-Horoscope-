@@ -1,6 +1,6 @@
 import sqlite3 as sl
 from json import dumps, loads
-from ...parcer.parcing_news_main import get_news_main
+from parcer.parcing_news_main import get_news_main
 
 
 def create_db(con):
@@ -88,6 +88,7 @@ def print_db(con):
         for i in range(len(records)):
             if i < limit:
                 id_news, name_news, first_text, link, text = records[i]
+                print(id_news, name_news, first_text)
                 text = loads(text)
                 result.append([name_news, first_text, link, text])
             else:
@@ -97,7 +98,7 @@ def print_db(con):
 
 
 def main_db():
-    con = sl.connect('scripts/db_for_news/news.db')
+    con = sl.connect('news.db')
 
     if check_db(con):
         data = create_data_for_db()
@@ -109,7 +110,7 @@ def main_db():
 
 
 def data_db():
-    con = sl.connect('scripts/db_for_news/news.db')
+    con = sl.connect('news.db')
     data = create_data_for_db()
     result = [con, data]
 

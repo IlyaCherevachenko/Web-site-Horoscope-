@@ -3,7 +3,7 @@ from parcer import parcing_base_horoscope, parcing_personal_horoscope
 from scripts import random_img, zodiac_sign, name_zodiac, create_home
 from scripts.birthday import write_and_read_birthday
 from scripts.constructor import constructor_horoscope
-from scripts.db_for_news import create_db
+import create_db
 
 app = Flask(__name__)
 
