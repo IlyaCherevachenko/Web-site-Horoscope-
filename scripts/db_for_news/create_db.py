@@ -1,6 +1,6 @@
 import sqlite3 as sl
-from Goroskop.parcer.parcing_news_main import get_news_main
 from json import dumps, loads
+from ...parcer.parcing_news_main import get_news_main
 
 
 def create_db(con):
